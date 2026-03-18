@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Duru ❤️ Mert</title>
+
+<style>
+body {
+    margin: 0;
+    background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
+    text-align: center;
+    font-family: Arial;
+    overflow-x: hidden;
+}
+
+h1 { color: white; font-size: 40px; margin-top: 50px; }
+p { color: white; font-size: 20px; }
+#counter { font-size: 25px; font-weight: bold; margin-top: 10px; }
+
+button#playMusic {
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 10px;
+    border: none;
+    background-color: #ff4d6d;
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button#playMusic:hover { background-color: #ff1a3c; }
+
+.heart { position: fixed; color: red; animation: float 5s linear infinite; }
+@keyframes float { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(-100vh); opacity: 0; } }
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    padding: 20px;
+}
+.gallery img { width: 100%; border-radius: 15px; transition: 0.3s; }
+.gallery img:hover { transform: scale(1.1); }
+</style>
+</head>
+
+<body>
+
+<h1>Duru ❤️</h1>
+<p>Aşkım benim iyiki hayatımdasın güzelim seni çoookk seviyorum hani hatırlıyor musun sana bir süprizim var demiştim ama asla söylemicem demiştim o bu işte sana özel bir site yapmak istedim umarım beğenmişsindir bir sayaç ekledim geçen süreye şok oldum ve geçirdiğim sürenin bir salisesine bile pişman değilim gulum seni o kadar çok seviyorum ki her zaman yanımda ol istiyorum o masmavi gözlerin dolgulu gibi olan o mükemmel dudakların(evet öpmeye doyamadığım)o saçların...her halinle mükemmelsin sende sevdiklerim sadece bunlar değil gülüşün anlayışın konuşman ağırbaşlılığın beni sevdiğini gerçekten hissettirmen ve daha tarifini yapamadığım yüzlerce binlerce belki de milyonlarca seni sevmem için sebep...evet her ilişkide olduğu gibi kavga ediyoruz bazen birbirimize kırıcı laflarda bulunuyoruz ama her ilişkide olmayan ama bizim ilişkimizde olan bir şey var "bağlılık".Ulan köpek gibi seviyorum seni ayrılmak kelimesini ağzımdan çıkmasını bırak aklmın köşesinden bile geçmedi bazen sinirliyken dediklerini bilemiyorsun evet ama bu benim için gram problem değil çünkü senin o minik güzel kalbini kıramam ben kırarsam allah belamı versin ya neyseeee demem o ki bu siteyi yapmamın nedeni sana olan sevgimi aşkımı bir de bu şekilde sunmak iyiki benimsin birtanem seni çok ama çokkkkkk seviyorum bebeğim benimmmm.</p>
+<p>17 Ekim 2025'ten beri 💖</p>
+
+<div id="counter"></div>
+
+<div class="gallery" id="gallery"></div>
+
+<script>
+// 🎵 Garantili müzik
+const audio = new Audio("muzik.mp3");
+audio.loop = true;
+
+const playBtn = document.createElement("button");
+playBtn.id = "playMusic";
+playBtn.innerText = "🎵 Müziği Çal";
+playBtn.addEventListener("click", () => {
+    audio.play().then(() => {
+        console.log("Müzik çalmaya başladı 🎶");
+        playBtn.style.display = "none"; // butonu gizle
+    }).catch(err => console.log("Hata:", err));
+});
+document.body.insertBefore(playBtn, document.getElementById("gallery"));
+
+// ❤️ Uçan kalpler
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 5000);
+}
+setInterval(createHeart, 300);
+
+// ⏳ Sayaç
+function updateCounter() {
+    const startDate = new Date("2025-10-17T00:00:00");
+    const now = new Date();
+    const diff = now - startDate;
+    const days = Math.floor(diff / (1000*60*60*24));
+    const hours = Math.floor((diff/(1000*60*60)) % 24);
+    const minutes = Math.floor((diff/(1000*60)) % 60);
+    const seconds = Math.floor((diff/1000) % 60);
+    document.getElementById("counter").innerHTML =
+        days + " gün " + hours + " saat " + minutes + " dakika " + seconds + " saniyedir birlikteyiz ❤️";
+}
+setInterval(updateCounter, 1000);
+
+// 💥 Kalp patlaması
+document.addEventListener("click", function(e){
+    for(let i=0;i<20;i++){
+        const heart = document.createElement("div");
+        heart.innerHTML = "❤️";
+        heart.style.position = "fixed";
+        heart.style.left = e.clientX + "px";
+        heart.style.top = e.clientY + "px";
+        heart.style.fontSize = (Math.random()*20+15) + "px";
+        heart.style.pointerEvents = "none";
+        heart.style.transition = "all 1s ease-out";
+        document.body.appendChild(heart);
+        setTimeout(()=>{heart.style.transform=`translate(${(Math.random()-0.5)*200}px, ${(Math.random()-0.5)*200}px)`; heart.style.opacity=0;},10);
+        setTimeout(()=>heart.remove(),1000);
+    }
+});
+
+// 🖼 Foto galeri
+const gallery = document.getElementById("gallery");
+const fotos = ["foto1.jpeg","foto2.jpeg","foto3.jpeg","foto4.jpeg","foto5.jpeg","foto6.jpeg"];
+fotos.forEach(src=>{
+    const img = document.createElement("img");
+    img.src = src;
+    img.onload = ()=>gallery.appendChild(img);
+    img.onerror = ()=>console.log(src+" bulunamadı, atlandı");
+});
+</script>
+
+</body>
+</html>
